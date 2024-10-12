@@ -1,0 +1,36 @@
+@import "../styles";
+
+#map {
+  width: 100%;
+  height: 100vh;
+}
+.sidebar {
+  background: $main-red-color;
+  flex: 0 0 25rem;
+  width: 30rem;
+}
+.sidebar-collapsed {
+  width: 0;
+  flex-basis: 0;
+}
+
+.sidebar-drawer {
+  background: $main-red-color;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+
+.sidebar__location-btn {
+  cursor: pointer;
+  padding: 1rem;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  &:hover {
+    background: $main-red-color-dark;
+  }
+}

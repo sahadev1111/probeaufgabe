@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+$main-red-color: #D20910;
+$main-red-color-dark: #A2070B;
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 16px;
+  margin: 0;
+  font-family: Verdana;
+}
+
+/* Button Styles */
+button {
+  background-color: $main-red-color;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color:  $main-red-color-dark;
+  transform: translateY(-2px);
+}
+
+button:active {
+  background-color: $main-red-color-dark;
+  transform: translateY(0);
+  box-shadow: none;
+}

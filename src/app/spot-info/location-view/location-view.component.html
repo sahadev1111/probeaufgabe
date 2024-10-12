@@ -1,0 +1,14 @@
+<div style="display: grid; grid-template-columns: 1fr 1fr">
+  <label class="" style="padding-bottom: .5rem"><b>{{'type' | translate}}</b></label>
+  <div class="" style="">{{'maptype_' + service.location()?.type | translate}}</div>
+
+  @for (item of attributes(); track item) {
+
+    <label class="" style="padding-bottom: .5rem"><b>{{item[0] | translate}}</b></label>
+    <div class="" style="">{{item[1]}}</div>
+  }
+</div>
+<button (click)="router.navigate(['locations', service.location()?.id,{ outlets: { locationbox: [ 'edit' ] }}])">bearbeiten</button>
+
+
+

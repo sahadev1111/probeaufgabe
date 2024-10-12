@@ -1,6 +1,6 @@
 
 @if (form(); as form) {
-  <div style="display: grid; grid-template-columns: minmax(10rem, 15rem) 1fr; gap: .5rem"
+  <div class="fields"
        [formGroup]="form">
     @for (ctrl of controlNames(); track ctrl) {
       <label>{{ ctrl }}</label>

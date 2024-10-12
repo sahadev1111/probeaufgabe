@@ -8,3 +8,7 @@
 button {
   margin-top: 1rem;
 }
+
+.fields {
+  display: grid; grid-template-columns: minmax(10rem, 15rem) 1fr; gap: .5rem
+}

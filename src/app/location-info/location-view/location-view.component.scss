@@ -8,3 +8,12 @@
 button {
   margin-top: 1rem;
 }
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  label {
+    padding-bottom: .5rem
+  }
+}

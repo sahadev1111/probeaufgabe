@@ -1,6 +1,6 @@
 import {MapLocation, MapItemType} from "../model/map-location.model";
 
-export const hardCodedData = [
+export const hardCodedLocations = [
   // new POI(9.27, 47.385971, 'Kebabhaus')
   {
     id: 1,

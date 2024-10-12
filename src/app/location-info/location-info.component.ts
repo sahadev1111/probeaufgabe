@@ -6,7 +6,7 @@ import {LocationEditComponent} from "./location-edit/location-edit.component";
 import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
 
 @Component({
-  selector: 'spot-info',
+  selector: 'location-info',
   standalone: true,
   imports: [
     LocationViewComponent,
@@ -21,27 +21,15 @@ export class LocationInfo implements OnChanges {
   visible = model(false);
   location = model<MapLocation | null>(null);
 
-
   constructor(protected service: LocationBoxService,
               protected router: Router,
               private activatedRoute: ActivatedRoute) {
-console.log(activatedRoute)
-
-
-    activatedRoute.paramMap.subscribe(p => {
-      console.log(p)
-    })
     activatedRoute.data.subscribe((data) => {
-      console.log(data)
       service.location.set(data["location"]);
     })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.service.location = this.location;
-  }
-
-  edit() {
-
   }
 }

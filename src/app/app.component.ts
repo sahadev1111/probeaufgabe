@@ -3,8 +3,8 @@ import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import 'ol/ol.css';
 import {MapService} from "./map.service";
 import {IMapItemsDataService, mapDataServiceToken} from "./dataService/location-data-service";
-import {HardCodedDataService} from "./dataService/hard-coded-data.service";
-import {LocationInfo} from "./spot-info/location-info.component";
+import {HardCodedLocationsService} from "./dataService/hard-coded-locations.service";
+import {LocationInfo} from "./location-info/location-info.component";
 import {AppServiceService} from "./app-service.service";
 import {MapLocation} from "./model/map-location.model";
 import {TranslateService} from "@ngx-translate/core";
@@ -19,7 +19,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
   styleUrl: './app.component.scss',
   providers: [{
     provide: mapDataServiceToken,
-    useValue: new HardCodedDataService()
+    useValue: new HardCodedLocationsService()
   }]
 })
 export class AppComponent {

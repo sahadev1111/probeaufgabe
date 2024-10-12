@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {IMapItemsDataService} from "./location-data-service";
 import {MapLocation, MapItemType} from "../model/map-location.model";
-import {hardCodedData} from "./hard-coded-data";
+import {hardCodedLocations} from "./hard-coded-locations";
 
 @Injectable({
   providedIn: 'root'
 })
-export class HardCodedDataService implements IMapItemsDataService {
+export class HardCodedLocationsService implements IMapItemsDataService {
   async insert(item: MapLocation): Promise<void> {
     this.data.push(item);
   }
@@ -37,5 +37,5 @@ export class HardCodedDataService implements IMapItemsDataService {
     return this.data;
   }
 
-  data: MapLocation[] = hardCodedData;
+  data: MapLocation[] = hardCodedLocations;
 }

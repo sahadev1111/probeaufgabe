@@ -7,6 +7,4 @@ import {MapLocation} from "../model/map-location.model";
 export class LocationBoxService {
   location = signal<MapLocation | null>( null);
   isEditMode = signal(false);
-
-  constructor() { }
 }

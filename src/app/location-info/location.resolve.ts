@@ -1,6 +1,6 @@
 import {ResolveFn} from "@angular/router";
 import {inject} from "@angular/core";
-import {IMapItemsDataService, mapDataServiceToken} from "../dataService/location-data-service";
+import {IMapItemsDataService, mapDataServiceToken} from "../data/location-data-service";
 import {assert} from "../lib/assert";
 import {MapLocation} from "../model/map-location.model";
 

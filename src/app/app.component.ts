@@ -2,8 +2,8 @@ import {APP_INITIALIZER, Component, computed, inject, signal} from '@angular/cor
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import 'ol/ol.css';
 import {MapService} from "./map.service";
-import {IMapItemsDataService, mapDataServiceToken} from "./dataService/location-data-service";
-import {HardCodedLocationsService} from "./dataService/hard-coded-locations.service";
+import {IMapItemsDataService, mapDataServiceToken} from "./data/location-data-service";
+import {HardCodedLocationsService} from "./data/hard-coded-locations.service";
 import {LocationInfo} from "./location-info/location-info.component";
 import {AppServiceService} from "./app-service.service";
 import {MapLocation} from "./model/map-location.model";

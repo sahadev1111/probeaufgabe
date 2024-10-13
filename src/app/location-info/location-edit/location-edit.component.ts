@@ -2,7 +2,7 @@ import {Component, computed, Inject, inject, OnInit, signal} from '@angular/core
 import {Router} from "@angular/router";
 import {LocationBoxService} from "../location-box.service";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {IMapItemsDataService, mapDataServiceToken} from "../../dataService/location-data-service";
+import {IMapItemsDataService, mapDataServiceToken} from "../../data/location-data-service";
 import {MapLocation} from "../../model/map-location.model";
 import {assert} from "../../lib/assert";
 

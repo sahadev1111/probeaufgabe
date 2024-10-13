@@ -6,8 +6,8 @@ import { provideStore } from '@ngrx/store';
 import {HttpClient, provideHttpClient} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {mapDataServiceToken} from "./dataService/location-data-service";
-import {HardCodedLocationsService} from "./dataService/hard-coded-locations.service";
+import {mapDataServiceToken} from "./data/location-data-service";
+import {HardCodedLocationsService} from "./data/hard-coded-locations.service";
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
   new TranslateHttpLoader(http, './i18n/', '.json');

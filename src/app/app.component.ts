@@ -1,10 +1,10 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import 'ol/ol.css';
 import {MapService} from "./map.service";
 import {IMapItemsDataService, mapDataServiceToken} from "./data/location-data-service";
 import {HardCodedLocationsService} from "./data/hard-coded-locations.service";
-import {LocationInfo} from "./location-info/location-info.component";
+import {LocationInfoComponent} from "./location-info/location-info.component";
 import {MapLocation} from "./model/map-location.model";
 import {TranslateService} from "@ngx-translate/core";
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
@@ -13,7 +13,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LocationInfo, LocationInfo, RouterLink],
+  imports: [RouterOutlet, LocationInfoComponent, LocationInfoComponent, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [{
@@ -21,7 +21,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
     useValue: new HardCodedLocationsService()
   }]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   mapService = inject(MapService);
   mapItems = inject(mapDataServiceToken) as IMapItemsDataService;

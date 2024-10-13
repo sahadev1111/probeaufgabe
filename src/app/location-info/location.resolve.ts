@@ -4,7 +4,7 @@ import {IMapItemsDataService, mapDataServiceToken} from "../data/location-data-s
 import {assert} from "../lib/assert";
 import {MapLocation} from "../model/map-location.model";
 
-export const locationResolver: ResolveFn<MapLocation | undefined> = (route, state) => {
+export const locationResolver: ResolveFn<MapLocation | undefined> = (route) => {
   const idAsString = route.paramMap.get('id');
 
   assert(idAsString, "no id parameter given");

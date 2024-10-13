@@ -1,6 +1,6 @@
 export enum MapItemType {StreetLight, POI, LifeStage}
 
-export type MapLocationAttributes = {
+export interface MapLocationAttributes {
   [key: string]: string;
 };
 

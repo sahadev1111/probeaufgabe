@@ -1,7 +1,6 @@
 <div class="main-container">
   <div [class.sidebar-collapsed]="sidebarCollapsed()" class="sidebar">
-    <div
-      class="sidebar-drawer"
+    <div class="sidebar-drawer"
       (click)="sidebarCollapsed.set(!sidebarCollapsed())">
       <img [src]="sidebarCollapsed() ? 'icons/double_arrow_right.svg' : 'icons/double_arrow_left.svg'">
     </div>

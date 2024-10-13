@@ -17,9 +17,6 @@ import {Icon, Style} from "ol/style";
 export class MapService {
   private map?: Map;
 
-  constructor() {
-  }
-
   vectorSource = new VectorSource({
     features: [] as Feature[]
   });

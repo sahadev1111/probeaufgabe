@@ -3,7 +3,7 @@
   <div class="fields"
        [formGroup]="form">
     @for (ctrl of controlNames(); track ctrl) {
-      <label>{{ ctrl }}</label>
+      <span>{{ ctrl }}</span>
       <input [formControlName]="ctrl">
     }
   </div>

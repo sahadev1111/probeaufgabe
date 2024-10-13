@@ -1,9 +1,9 @@
 <div class="fields">
-  <label><b>{{'type' | translate}}</b></label>
+  <b>{{'type' | translate}}</b>
   <div>{{'maptype_' + service.location()?.type | translate}}</div>
 
   @for (item of attributes(); track item) {
-    <label><b>{{item[0] | translate}}</b></label>
+    <b>{{item[0] | translate}}</b>
     <div>{{item[1]}}</div>
   }
 </div>

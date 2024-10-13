@@ -1,4 +1,4 @@
-import {Component, model, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, model, OnChanges} from '@angular/core';
 import {MapLocation} from "../model/map-location.model";
 import {LocationBoxService} from "./location-box.service";
 import {LocationViewComponent} from "./location-view/location-view.component";
@@ -6,7 +6,7 @@ import {LocationEditComponent} from "./location-edit/location-edit.component";
 import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
 
 @Component({
-  selector: 'location-info',
+  selector: 'app-location-info',
   standalone: true,
   imports: [
     LocationViewComponent,
@@ -17,7 +17,7 @@ import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
   styleUrl: './location-info.component.scss',
   providers: [LocationBoxService]
 })
-export class LocationInfo implements OnChanges {
+export class LocationInfoComponent implements OnChanges {
   visible = model(false);
   location = model<MapLocation | null>(null);
 

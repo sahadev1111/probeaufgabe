@@ -1,6 +1,5 @@
-import {Component, computed, effect} from '@angular/core';
+import {Component, computed} from '@angular/core';
 import {LocationBoxService} from "../location-box.service";
-import {MapLocationAttributes} from "../../model/map-location.model";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {Router} from "@angular/router";

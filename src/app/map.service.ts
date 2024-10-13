@@ -21,7 +21,7 @@ export class MapService {
   }
 
   vectorSource = new VectorSource({
-    features: [] as any[]
+    features: [] as Feature[]
   });
 
   initMap() {
@@ -39,15 +39,6 @@ export class MapService {
       })
     });
 
-
-    const pointFeature = new Feature({
-      geometry: new Point(fromLonLat([9.281716, 47.385971]))
-    });
-
-
-// Create a vector layer to display the features
-
-
     const vectorLayer = new VectorLayer({
       source: this.vectorSource
     });
@@ -59,25 +50,19 @@ export class MapService {
       this.map?.forEachFeatureAtPixel(event.pixel, function (feature) {
 
         feature.get('clickListener')?.(feature.get('model'));
-
-        if (feature === pointFeature) {
-
-          alert('You clicked the point feature!');
-        }
       });
     });
   }
 
   addFeature<T>(long: number, lat: number, dataItem: T, clickListener: (item: T) => void, iconUrl: string) {
     const feature = new Feature({
-      //geometry: new Point(fromLonLat([9.27, 47.385971])),
       geometry: new Point(fromLonLat([long, lat])),
       model: 1
     });
     const iconStyle = new Style({
       image: new Icon({
         anchor: [0.5, 1],
-        src: iconUrl // Replace with your icon URL
+        src: iconUrl
       })
     });
 

@@ -24,7 +24,7 @@ export class LocationEditComponent implements OnInit {
       return null;
     }
 
-    let controls: { [key: string]: (string | number)[] } = {
+    const controls: { [key: string]: (string | number)[] } = {
       name: [location.name],
       latitude: [location.latitude],
       longitude: [location.longitude],

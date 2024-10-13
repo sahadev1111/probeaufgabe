@@ -29,7 +29,7 @@ export class LocationInfo implements OnChanges {
     })
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.service.location = this.location;
   }
 }

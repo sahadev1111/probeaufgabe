@@ -31,14 +31,14 @@ export class AppComponent {
   locations = toSignal(fromPromise(this.mapItems.getData()));
 
   async ngOnInit() {
-      this.mapService.initMap();
-      const data =  await this.mapItems.getData();
+    this.mapService.initMap();
+    const data = await this.mapItems.getData();
     data.forEach(dataItem => this.mapService.addFeature(dataItem.longitude, dataItem.latitude, dataItem,
-        (item: MapLocation) => {
+      (item: MapLocation) => {
         this.location.set(item)
-        console.log(item)
+
         this.locationInfoVisible.set(true);
-       // this.router.navigate(['locations', item.id, { outlets: { locationbox: [ 'edit' ] }}])
+
         this.router.navigate(['locations', item.id])
       }, `icons/location_type_${dataItem.type}.svg`))
   }

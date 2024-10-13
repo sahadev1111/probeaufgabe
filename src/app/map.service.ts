@@ -34,8 +34,8 @@ export class MapService {
         })
       ],
       view: new View({
-        center: fromLonLat([9.266163, 47.391255]),  // Coordinates in EPSG:3857 (Web Mercator)
-        zoom: 14  // Zoom level
+        center: fromLonLat([9.281659, 47.385993]),  // Coordinates in EPSG:3857 (Web Mercator)
+        zoom: 16  // Zoom level
       })
     });
 

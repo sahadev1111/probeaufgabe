@@ -4,7 +4,4 @@ import {Injectable, signal} from '@angular/core';
   providedIn: 'root'
 })
 export class AppServiceService {
-  showLocationInfo = signal(false);
-
-  constructor() { }
 }

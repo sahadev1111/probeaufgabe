@@ -1,11 +1,10 @@
-import {APP_INITIALIZER, Component, computed, inject, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import 'ol/ol.css';
 import {MapService} from "./map.service";
 import {IMapItemsDataService, mapDataServiceToken} from "./data/location-data-service";
 import {HardCodedLocationsService} from "./data/hard-coded-locations.service";
 import {LocationInfo} from "./location-info/location-info.component";
-import {AppServiceService} from "./app-service.service";
 import {MapLocation} from "./model/map-location.model";
 import {TranslateService} from "@ngx-translate/core";
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
@@ -26,7 +25,6 @@ export class AppComponent {
 
   mapService = inject(MapService);
   mapItems = inject(mapDataServiceToken) as IMapItemsDataService;
-  appService = inject(AppServiceService);
   locationInfoVisible = signal(false);
   location = signal<MapLocation | null>(null);
   sidebarCollapsed = signal<boolean>(false);

@@ -1,7 +1,6 @@
-import {Component, computed, Inject, inject, OnInit, signal} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, computed, Inject, inject, OnInit} from '@angular/core';
 import {LocationBoxService} from "../location-box.service";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {IMapItemsDataService, mapDataServiceToken} from "../../data/location-data-service";
 import {MapLocation} from "../../model/map-location.model";
 import {assert} from "../../lib/assert";
@@ -16,7 +15,9 @@ import {assert} from "../../lib/assert";
   styleUrl: './location-edit.component.scss'
 })
 export class LocationEditComponent implements OnInit {
+
   fb = inject(FormBuilder);
+
   form = computed(() => {
     const location = this.service.location();
     if (!location) {
@@ -29,7 +30,7 @@ export class LocationEditComponent implements OnInit {
       longitude: [location.longitude],
     };
 
-    const form = this.fb.group(controls)
+    let form = this.fb.group(controls)
 
     if (!location.attributes) {
       return form;
@@ -38,6 +39,8 @@ export class LocationEditComponent implements OnInit {
     for (const [key, value] of Object.entries(location.attributes)) {
       controls[key] = [value];
     }
+
+    form = this.fb.group(controls)
 
     return form;
   })
@@ -54,11 +57,16 @@ export class LocationEditComponent implements OnInit {
   }
 
   save() {
+    const location = this.service.location();
+    assert(!!location, "location is undefined");
+
     const formValue: unknown = this.form()?.value;
     const mapItem = formValue as MapLocation;
-    mapItem.id = this.service.location()?.id;
 
-    if (this.service.location()?.id === undefined) {
+    mapItem.id = location?.id;
+    mapItem.type = location?.type;
+
+    if (location?.id === undefined) {
       this.dataService.insert(formValue as MapLocation);
     } else {
       this.dataService.update(formValue as MapLocation);

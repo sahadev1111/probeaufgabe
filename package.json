@@ -1,6 +1,7 @@
 {
   "name": "probeaufgabe",
   "version": "0.0.0",
+  "type": "commonjs",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

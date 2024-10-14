@@ -1,13 +1,17 @@
 <div class="fields">
-  <b>{{'type' | translate}}</b>
-  <div>{{'maptype_' + service.location()?.type | translate}}</div>
+  <b>{{ 'type' | translate }}</b>
+  <div>{{ 'maptype_' + service.location()?.type | translate }}</div>
+  <b>{{ 'Coordinates' | translate }}</b>
+  <div>{{ service.location()?.longitude }}, {{ service.location()?.latitude }}</div>
 
   @for (item of attributes(); track item) {
-    <b>{{item[0] | translate}}</b>
-    <div>{{item[1]}}</div>
+    <b>{{ item| translate }}</b>
+    <div>{{ service.location()?.attributes?.[item] }}</div>
   }
 </div>
-<button (click)="router.navigate(['locations', service.location()?.id,{ outlets: { locationbox: [ 'edit' ] }}])">bearbeiten</button>
+<button (click)="router.navigate(['locations', service.location()?.id,{ outlets: { locationbox: [ 'edit' ] }}])">
+  bearbeiten
+</button>
 
 
 

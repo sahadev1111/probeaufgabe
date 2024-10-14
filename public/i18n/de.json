@@ -1,7 +1,9 @@
 {
   "category": "Kategorie",
   "description": "Beschreibung",
-  "maptype_0": "POI",
+  "maptype_POI": "Point of Interest",
   "maptype_1": "Point of Interest",
-  "maptype_2": "Lebensstation"
+  "maptype_2": "Lebensstation",
+  "Coordinates": "Koordinaten",
+  "type": "Typ"
 }

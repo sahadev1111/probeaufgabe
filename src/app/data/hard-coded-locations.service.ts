@@ -30,6 +30,7 @@ export class HardCodedLocationsService implements IMapItemsDataService {
   }
 
   async getById(id: number): Promise<MapLocation | undefined> {
+    console.log(this.data.find(dataItem => dataItem.id === id))
     return this.data.find(dataItem => dataItem.id === id);
   }
 

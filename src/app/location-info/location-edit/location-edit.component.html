@@ -1,11 +1,24 @@
-
 @if (form(); as form) {
-  <div class="fields"
-       [formGroup]="form">
-    @for (ctrl of formControlNames(); track ctrl) {
-      <span>{{ ctrl }}</span>
-      <input [formControlName]="ctrl">
-    }
+  <div class="fields" [formGroup]="form">
+    <span>{{ 'name' | translate }}</span>
+    <input formControlName="name">
+    <span>{{ 'longitude' | translate }}</span>
+    <input formControlName="longitude">
+    <span>{{ 'latitude' | translate }}</span>
+    <input formControlName="latitude">
+    <span>{{ 'type' | translate }}</span>
+    <select formControlName="type">
+      @for (type of mapTypes; track type) {
+        <option [ngValue]="type">{{ mapTypeSelectTexts[type] }}</option>
+      }
+    </select>
+
+    <ng-container formGroupName="typeSpecificControls">
+      @for (ctrl of getTypeSpecificControlNames(); track ctrl) {
+        <span>{{ ctrl | translate }}</span>
+        <input [formControlName]="ctrl">
+      }
+    </ng-container>
   </div>
   <button (click)="save()">save</button>
 }

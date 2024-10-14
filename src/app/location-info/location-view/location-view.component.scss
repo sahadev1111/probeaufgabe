@@ -11,6 +11,7 @@ button {
 
 .fields {
   display: grid;
+  gap: .5rem;
   grid-template-columns: 1fr 1fr;
 
   label {

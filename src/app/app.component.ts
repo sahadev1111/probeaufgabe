@@ -9,11 +9,13 @@ import {MapLocation} from "./model/map-location.model";
 import {TranslateService} from "@ngx-translate/core";
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
 import {toSignal} from "@angular/core/rxjs-interop";
+import {AppService} from "./app.service";
+import {SidebarComponent} from "./sidebar/sidebar.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LocationInfoComponent, LocationInfoComponent, RouterLink],
+  imports: [RouterOutlet, LocationInfoComponent, LocationInfoComponent, RouterLink, SidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [{
@@ -28,22 +30,34 @@ export class AppComponent implements OnInit {
   locationInfoVisible = signal(false);
   location = signal<MapLocation | null>(null);
   sidebarCollapsed = signal<boolean>(false);
-  locations = toSignal(fromPromise(this.mapItems.getData()));
 
   async ngOnInit() {
     this.mapService.initMap();
-    const data = await this.mapItems.getData();
-    data.forEach(dataItem => this.mapService.addFeature(dataItem.longitude, dataItem.latitude, dataItem,
-      (item: MapLocation) => {
-        this.location.set(item)
 
-        this.locationInfoVisible.set(true);
+    this.reloadDataOnCommand();
 
-        this.router.navigate(['locations', item.id])
-      }, `icons/location_type_${dataItem.type}.svg`))
+    this.appService.reloadDataCommand.next();
+
   }
 
-  constructor(private translate: TranslateService, private router: Router) {
+  private reloadDataOnCommand() {
+    this.appService.locations$.subscribe(async () => {
+
+      this.mapService.clearData();
+
+      const data = await this.mapItems.getData();
+      data.forEach(dataItem => this.mapService.addFeature(dataItem.longitude, dataItem.latitude, dataItem,
+        (item: MapLocation) => {
+          this.location.set(item)
+
+          this.locationInfoVisible.set(true);
+
+          this.router.navigate(['locations', item.id])
+        }, `icons/location_type_${dataItem.type}.svg`))
+    });
+  }
+
+  constructor(private translate: TranslateService, private router: Router, private appService: AppService) {
 
     this.translate.addLangs(['de']);
     this.translate.setDefaultLang('de');

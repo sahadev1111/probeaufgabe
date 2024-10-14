@@ -7,8 +7,10 @@ import {hardCodedLocations} from "./hard-coded-locations";
   providedIn: 'root'
 })
 export class HardCodedLocationsService implements IMapItemsDataService {
-  async insert(item: MapLocation): Promise<void> {
+  async insert(item: MapLocation): Promise<MapLocation> {
+    item.id = this.data.length + 1;
     this.data.push(item);
+    return item;
   }
 
   async delete(mapItem: MapLocation): Promise<void> {

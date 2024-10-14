@@ -10,6 +10,8 @@ import {toObservable} from "@angular/core/rxjs-interop";
 import {merge, of} from "rxjs";
 import {filter, switchMap, tap} from "rxjs/operators";
 import {AsyncPipe} from "@angular/common";
+import {Router} from "@angular/router";
+import {AppService} from "../../app.service";
 
 @Component({
   selector: 'app-location-edit',
@@ -44,7 +46,10 @@ export class LocationEditComponent {
     });
   });
 
-  constructor(protected service: LocationBoxService, @Inject(mapDataServiceToken) private dataService: IMapItemsDataService) {
+  constructor(protected service: LocationBoxService,
+              private appService: AppService,
+              @Inject(mapDataServiceToken) private dataService: IMapItemsDataService,
+              private router: Router) {
 
     const updateFormControlsOnTypeChange$ = toObservable(this.form).pipe(
       filter(form => !!form?.get('type')?.valueChanges),
@@ -55,11 +60,10 @@ export class LocationEditComponent {
       }));
 
     updateFormControlsOnTypeChange$
-      .subscribe(form => this.updateDisplayedAttributes())
-
+      .subscribe(form => this.updateDisplayedAttributes());
   }
 
-  save() {
+  async save() {
     const location = this.service.location();
     assert(!!location, "location is undefined");
 
@@ -70,16 +74,19 @@ export class LocationEditComponent {
 
     this.updateTypeSpecificAttributes(location)
 
-    this.saveInDataSource(location, formValue);
+    await this.saveInDataSource(location, formValue);
   }
 
 
-  private saveInDataSource(location: MapLocation, formValue: unknown) {
+  private async saveInDataSource(location: MapLocation, formValue: unknown) {
     if (location?.id === undefined) {
-      this.dataService.insert(location);
+      const savedLocation = await this.dataService.insert(location);
+      this.router.navigate(['locations', savedLocation.id])
     } else {
       this.dataService.update(location);
     }
+
+    this.appService.reloadDataCommand.next();
   }
 
   private updateTypeSpecificAttributes(location: MapLocation) {

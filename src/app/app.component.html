@@ -1,20 +1,5 @@
 <div class="main-container">
-  <div [class.sidebar-collapsed]="sidebarCollapsed()" class="sidebar">
-    <div class="sidebar-drawer"
-      (click)="sidebarCollapsed.set(!sidebarCollapsed())">
-      <img [src]="sidebarCollapsed() ? 'icons/double_arrow_right.svg' : 'icons/double_arrow_left.svg'">
-    </div>
-    <div>
-      <button [routerLink]="['locations', 'new',{ outlets: { locationbox: [ 'edit' ] }}]">create new</button>
-
-      @for (location of locations(); track location.id) {
-        <div class="sidebar__location-btn" [routerLink]="['locations', location.id]">
-          <a>{{ location.name }}</a>
-        </div>
-      }
-    </div>
-  </div>
-
+  <app-sidebar></app-sidebar>
   <div id="map"></div>
 </div>
 <router-outlet></router-outlet>

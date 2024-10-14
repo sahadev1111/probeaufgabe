@@ -40,7 +40,6 @@ export class MapService {
       source: this.vectorSource
     });
 
-// Add the vector layer to the map
     this.map.addLayer(vectorLayer);
 
     this.map.on('singleclick', (event) => {
@@ -56,6 +55,7 @@ export class MapService {
       geometry: new Point(fromLonLat([long, lat])),
       model: 1
     });
+
     const iconStyle = new Style({
       image: new Icon({
         anchor: [0.5, 1],
@@ -70,6 +70,10 @@ export class MapService {
 
     feature.set('clickListener', clickListener);
     this.vectorSource.addFeature(feature)
+  }
+
+  clearData() {
+    this.vectorSource.clear();
   }
 
 }

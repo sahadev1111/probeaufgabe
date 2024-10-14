@@ -8,7 +8,7 @@ export interface IMapItemsDataService {
 
   getById(id: number): Promise<MapLocation | undefined>;
 
-  insert(value: MapLocation): Promise<void>;
+  insert(value: MapLocation): Promise<MapLocation>;
 
   update(value: MapLocation): Promise<void>;
 }

@@ -17,19 +17,14 @@ import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
   styleUrl: './location-info.component.scss',
   providers: [LocationBoxService]
 })
-export class LocationInfoComponent implements OnChanges {
-  visible = model(false);
-  location = model<MapLocation | null>(null);
+export class LocationInfoComponent {
 
   constructor(protected service: LocationBoxService,
               protected router: Router,
               private activatedRoute: ActivatedRoute) {
+
     activatedRoute.data.subscribe((data) => {
       service.location.set(data["location"]);
-    })
-  }
-
-  ngOnChanges(): void {
-    this.service.location = this.location;
+    });
   }
 }

@@ -31,6 +31,7 @@ export class LocationsRestService implements IMapItemsDataService {
 
 
   async update(mapItem: MapLocation): Promise<void> {
+
     await fetch(`${API_PATH}/${mapItem.id}`, {
       method: 'PUT',
       headers: {
@@ -41,7 +42,7 @@ export class LocationsRestService implements IMapItemsDataService {
   }
 
   async getById(id: number): Promise<MapLocation | undefined> {
-    const result = await fetch(`${API_PATH}/$id}`, {
+    const result = await fetch(`${API_PATH}/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -2,8 +2,12 @@ import {MapLocation} from "../../src/app/model/map-location.model";
 import {hardCodedLocations} from "../../src/app/data/hard-coded-locations";
 
 export class LocationDataAccess {
-  async insert(item: MapLocation): Promise<void> {
+  async insert(item: MapLocation): Promise<MapLocation
+  > {
+    item.id = this.data.length + 1;
     this.data.push(item);
+
+    return item;
   }
 
   async delete(mapItem: MapLocation): Promise<void> {

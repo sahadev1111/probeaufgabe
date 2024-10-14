@@ -3,12 +3,9 @@ import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import 'ol/ol.css';
 import {MapService} from "./map.service";
 import {IMapItemsDataService, mapDataServiceToken} from "./data/location-data-service";
-import {HardCodedLocationsService} from "./data/hard-coded-locations.service";
 import {LocationInfoComponent} from "./location-info/location-info.component";
 import {MapLocation} from "./model/map-location.model";
 import {TranslateService} from "@ngx-translate/core";
-import {fromPromise} from "rxjs/internal/observable/innerFrom";
-import {toSignal} from "@angular/core/rxjs-interop";
 import {AppService} from "./app.service";
 import {SidebarComponent} from "./sidebar/sidebar.component";
 
@@ -17,11 +14,7 @@ import {SidebarComponent} from "./sidebar/sidebar.component";
   standalone: true,
   imports: [RouterOutlet, LocationInfoComponent, LocationInfoComponent, RouterLink, SidebarComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  providers: [{
-    provide: mapDataServiceToken,
-    useValue: new HardCodedLocationsService()
-  }]
+  styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
 

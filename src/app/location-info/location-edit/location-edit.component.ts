@@ -76,7 +76,8 @@ export class LocationEditComponent implements OnDestroy {
     const mapItem = formValue as MapLocation;
     mapItem.id = this.service.location()?.id;
 
-    this.updateTypeSpecificAttributes(mapItem)
+    this.updateTypeSpecificAttributes(mapItem);
+
     await this.saveInDataSource(mapItem);
   }
 
@@ -86,7 +87,7 @@ export class LocationEditComponent implements OnDestroy {
       const savedLocation = await this.dataService.insert(location);
       this.router.navigate(['locations', savedLocation.id])
     } else {
-      this.dataService.update(location);
+      await this.dataService.update(location);
     }
 
     this.appService.reloadDataCommand.next();

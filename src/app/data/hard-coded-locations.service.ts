@@ -27,8 +27,6 @@ export class HardCodedLocationsService implements IMapItemsDataService {
 
       this.data[itemIndex] = mapItem;
     }
-
-    console.log(this.data)
   }
 
   async getById(id: number): Promise<MapLocation | undefined> {

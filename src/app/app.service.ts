@@ -11,12 +11,12 @@ import {tap} from "rxjs/operators";
 export class AppService {
   reloadDataCommand = new Subject<void>();
   mapItems = inject(mapDataServiceToken) as IMapItemsDataService;
-  locations$ = this.reloadDataCommand.pipe(
-    switchMap(() => fromPromise(this.mapItems.getData()))
-    );
-  locations = toSignal(this.locations$);
 
-  l = toSignal(this.locations$)
+  locations$ = this.reloadDataCommand.pipe(
+    switchMap(() => fromPromise(this.mapItems.getAll()))
+  );
+
+  locations = toSignal(this.locations$);
 
   constructor() {
     this.reloadDataCommand.next();

@@ -7,7 +7,7 @@ import {assert} from "../../lib/assert";
 import {TranslateModule} from "@ngx-translate/core";
 import {getDisplayAttributesByType} from "../get-display-attributes-by-type";
 import {toObservable, toSignal} from "@angular/core/rxjs-interop";
-import {map, merge, of, Subject, takeUntil} from "rxjs";
+import {merge, of, Subject, takeUntil} from "rxjs";
 import {filter, switchMap, tap} from "rxjs/operators";
 import {AsyncPipe} from "@angular/common";
 import {Router} from "@angular/router";

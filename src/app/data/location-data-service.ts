@@ -4,7 +4,7 @@ import {InjectionToken} from "@angular/core";
 export const mapDataServiceToken = new InjectionToken("mapDataService");
 
 export interface IMapItemsDataService {
-  getData(): Promise<MapLocation[]>;
+  getAll(): Promise<MapLocation[]>;
 
   getById(id: number): Promise<MapLocation | undefined>;
 

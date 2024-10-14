@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
 
       this.mapService.clearData();
 
-      const data = await this.mapItems.getData();
+      const data = await this.mapItems.getAll();
       data.forEach(dataItem => this.mapService.addFeature(dataItem.longitude, dataItem.latitude, dataItem,
         (item: MapLocation) => {
           this.location.set(item)
@@ -58,7 +58,6 @@ export class AppComponent implements OnInit {
   }
 
   constructor(private translate: TranslateService, private router: Router, private appService: AppService) {
-
     this.translate.addLangs(['de']);
     this.translate.setDefaultLang('de');
     this.translate.use('de');

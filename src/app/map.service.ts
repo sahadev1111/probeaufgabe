@@ -64,11 +64,9 @@ export class MapService {
     });
 
     feature.setStyle(iconStyle);
-
-
     feature.set('model', dataItem)
-
     feature.set('clickListener', clickListener);
+
     this.vectorSource.addFeature(feature)
   }
 

@@ -36,7 +36,7 @@ export class HardCodedLocationsService implements IMapItemsDataService {
     return this.data.find(dataItem => dataItem.id === id);
   }
 
-  async getData(): Promise<MapLocation[]> {
+  async getAll(): Promise<MapLocation[]> {
     return this.data;
   }
 

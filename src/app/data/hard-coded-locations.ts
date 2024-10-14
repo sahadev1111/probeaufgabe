@@ -31,8 +31,7 @@ export const hardCodedLocations: MapLocation[] = [
     longitude: 9.278666,
     latitude: 47.385920,
     attributes: {
-      category: "parking",
-      description: "expensive, avoid"
+      brightness: "10"
     }
   },
   {
@@ -53,8 +52,7 @@ export const hardCodedLocations: MapLocation[] = [
     longitude: 9.279266,
     latitude: 47.385449,
     attributes: {
-      category: "parking",
-      description: "expensive, avoid"
+      brightness: "10"
     }
   },
   {
@@ -64,8 +62,7 @@ export const hardCodedLocations: MapLocation[] = [
     longitude: 9.279214,
     latitude:47.385517,
     attributes: {
-      category: "parking",
-      description: "expensive, avoid"
+      brightness: "10"
     }
   },
   {
@@ -75,8 +72,7 @@ export const hardCodedLocations: MapLocation[] = [
     longitude: 9.279167,
     latitude:47.385590,
     attributes: {
-      category: "parking",
-      description: "expensive, avoid"
+      brightness: "10"
     }
   },
   {
@@ -86,8 +82,7 @@ export const hardCodedLocations: MapLocation[] = [
     longitude: 9.385712,
     latitude:47.278945,
     attributes: {
-      category: "parking",
-      description: "expensive, avoid"
+      brightness: "80"
     }
   },
   {
@@ -97,7 +92,7 @@ export const hardCodedLocations: MapLocation[] = [
     longitude: 9.283373,
     latitude:47.387932,
     attributes: {
-      description: "Here I was born"
+      stage: "Here I was born"
     }
   }
 ];

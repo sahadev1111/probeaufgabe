@@ -14,7 +14,7 @@ import {assert} from "../../lib/assert";
   templateUrl: './location-edit.component.html',
   styleUrl: './location-edit.component.scss'
 })
-export class LocationEditComponent implements OnInit {
+export class LocationEditComponent {
 
   fb = inject(FormBuilder);
 
@@ -49,11 +49,6 @@ export class LocationEditComponent implements OnInit {
 
   constructor(protected service: LocationBoxService, @Inject(mapDataServiceToken) private dataService: IMapItemsDataService) {
 
-  }
-
-  ngOnInit(): void {
-
-    this.service.isEditMode.set(false)
   }
 
   save() {

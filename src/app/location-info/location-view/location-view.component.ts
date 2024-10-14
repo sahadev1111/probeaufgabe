@@ -15,6 +15,7 @@ import {Router} from "@angular/router";
 })
 export class LocationViewComponent {
   form: FormGroup;
+
   constructor(protected service: LocationBoxService, private fb: FormBuilder, protected router: Router) {
     this.form = this.fb.group({
       name: '',
@@ -23,6 +24,5 @@ export class LocationViewComponent {
   }
 
   attributes = computed<[string, string][]>(() => Object.entries(this.service.location()?.attributes || []));
-
-  protected readonly location = location;
 }
+

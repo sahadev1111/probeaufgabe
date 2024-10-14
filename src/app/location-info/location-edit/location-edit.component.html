@@ -2,7 +2,7 @@
 @if (form(); as form) {
   <div class="fields"
        [formGroup]="form">
-    @for (ctrl of controlNames(); track ctrl) {
+    @for (ctrl of formControlNames(); track ctrl) {
       <span>{{ ctrl }}</span>
       <input [formControlName]="ctrl">
     }

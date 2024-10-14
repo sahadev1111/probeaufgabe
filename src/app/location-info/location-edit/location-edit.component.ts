@@ -1,4 +1,4 @@
-import {Component, computed, Inject, inject, OnInit} from '@angular/core';
+import {Component, computed, Inject, inject} from '@angular/core';
 import {LocationBoxService} from "../location-box.service";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {IMapItemsDataService, mapDataServiceToken} from "../../data/location-data-service";
@@ -16,7 +16,7 @@ import {assert} from "../../lib/assert";
 })
 export class LocationEditComponent {
 
-  fb = inject(FormBuilder);
+  formBuilder = inject(FormBuilder);
 
   form = computed(() => {
     const location = this.service.location();
@@ -24,28 +24,16 @@ export class LocationEditComponent {
       return null;
     }
 
-    const controls:  Record<string, (string | number)[]> = {
-      name: [location.name],
-      latitude: [location.latitude],
-      longitude: [location.longitude],
-    };
-
-    let form = this.fb.group(controls)
+    const controls = this.initControls(location);
 
     if (!location.attributes) {
-      return form;
+      return this.formBuilder.group(controls);
     }
 
-    for (const [key, value] of Object.entries(location.attributes)) {
-      controls[key] = [value];
-    }
-
-    form = this.fb.group(controls)
-
-    return form;
+    return this.createControlsForLocationAttributes(location, controls);
   })
 
-  controlNames = computed(() => Object.keys(this.form()?.controls || []));
+  formControlNames = computed(() => Object.keys(this.form()?.controls || []));
 
   constructor(protected service: LocationBoxService, @Inject(mapDataServiceToken) private dataService: IMapItemsDataService) {
 
@@ -66,5 +54,27 @@ export class LocationEditComponent {
     } else {
       this.dataService.update(formValue as MapLocation);
     }
+  }
+
+
+  private initControls(location: MapLocation) {
+    const controls: Record<string, (string | number)[]> = {
+      name: [location.name],
+      latitude: [location.latitude],
+      longitude: [location.longitude],
+    };
+    return controls;
+  }
+
+  private createControlsForLocationAttributes(location: MapLocation, controls: Record<string, (string | number)[]>) {
+    if(!location.attributes) {
+      return;
+    }
+
+    for (const [key, value] of Object.entries(location.attributes)) {
+      controls[key] = [value];
+    }
+
+    return this.formBuilder.group(controls)
   }
 }

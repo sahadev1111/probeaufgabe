@@ -1,7 +1,7 @@
 import {Component, computed} from '@angular/core';
 import {LocationBoxService} from "../location-box.service";
 import {TranslateModule} from "@ngx-translate/core";
-import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 
 @Component({
@@ -14,13 +14,8 @@ import {Router} from "@angular/router";
   styleUrl: './location-view.component.scss'
 })
 export class LocationViewComponent {
-  form: FormGroup;
 
-  constructor(protected service: LocationBoxService, private fb: FormBuilder, protected router: Router) {
-    this.form = this.fb.group({
-      name: '',
-
-    })
+  constructor(protected service: LocationBoxService, protected router: Router) {
   }
 
   attributes = computed<[string, string][]>(() => Object.entries(this.service.location()?.attributes || []));

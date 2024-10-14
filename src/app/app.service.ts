@@ -12,8 +12,7 @@ export class AppService {
   reloadDataCommand = new Subject<void>();
   mapItems = inject(mapDataServiceToken) as IMapItemsDataService;
   locations$ = this.reloadDataCommand.pipe(
-    switchMap(() => fromPromise(this.mapItems.getData())),
-    tap((a) => console.log(a))
+    switchMap(() => fromPromise(this.mapItems.getData()))
     );
   locations = toSignal(this.locations$);
 

@@ -1,7 +1,7 @@
 {
   "category": "Kategorie",
   "description": "Beschreibung",
-  "maptype_POI": "Point of Interest",
+  "maptype_0": "Strassenlaterne",
   "maptype_1": "Point of Interest",
   "maptype_2": "Lebensstation",
   "Coordinates": "Koordinaten",

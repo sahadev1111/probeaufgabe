@@ -7,7 +7,6 @@
 
     <button [routerLink]="['locations', 'new',{ outlets: { locationbox: [ 'edit' ] }}]">create new</button>
     @for (location of appService.locations(); track location.id) {
-      {{location.id}}
       <div class="sidebar__location-btn" [routerLink]="['locations', location.id]">
         <a>{{ location.name }}</a>
       </div>

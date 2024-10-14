@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, Inject, inject, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, Inject, inject, OnDestroy, signal} from '@angular/core';
 import {LocationBoxService} from "../location-box.service";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {IMapItemsDataService, mapDataServiceToken} from "../../data/location-data-service";
@@ -6,8 +6,8 @@ import {MapItemType, MapLocation} from "../../model/map-location.model";
 import {assert} from "../../lib/assert";
 import {TranslateModule} from "@ngx-translate/core";
 import {getDisplayAttributesByType} from "../get-display-attributes-by-type";
-import {toObservable} from "@angular/core/rxjs-interop";
-import {merge, of} from "rxjs";
+import {toObservable, toSignal} from "@angular/core/rxjs-interop";
+import {map, merge, of, Subject, takeUntil} from "rxjs";
 import {filter, switchMap, tap} from "rxjs/operators";
 import {AsyncPipe} from "@angular/common";
 import {Router} from "@angular/router";
@@ -25,11 +25,13 @@ import {AppService} from "../../app.service";
   styleUrl: './location-edit.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LocationEditComponent {
+export class LocationEditComponent implements OnDestroy {
 
   formBuilder = inject(FormBuilder);
   mapTypes = Object.values(MapItemType).filter(mapType => typeof mapType === 'number');
   mapTypeSelectTexts = Object.values(MapItemType).filter(mapType => typeof mapType !== 'number');
+  destroySubject = new Subject<void>();
+  typeSpecificControlNames = signal<string[]>([]);
 
   form = computed(() => {
     const location = this.service.location();
@@ -51,34 +53,35 @@ export class LocationEditComponent {
               @Inject(mapDataServiceToken) private dataService: IMapItemsDataService,
               private router: Router) {
 
-    const updateFormControlsOnTypeChange$ = toObservable(this.form).pipe(
+    const onTypeChange$ = toObservable(this.form).pipe(
       filter(form => !!form?.get('type')?.valueChanges),
       switchMap(form => {
         const typeCtrl = form?.get('type');
-        assert(typeCtrl, "");
-        return merge(of(typeCtrl.value), typeCtrl.valueChanges!)
+        assert(typeCtrl, "expected type control to exist");
+        return merge(of(typeCtrl.value), typeCtrl.valueChanges!) // we know valueChanges is not null because of filter above
       }));
 
-    updateFormControlsOnTypeChange$
+    onTypeChange$
+      .pipe(takeUntil(this.destroySubject))
       .subscribe(form => this.updateDisplayedAttributes());
   }
 
-  async save() {
-    const location = this.service.location();
-    assert(!!location, "location is undefined");
+  ngOnDestroy(): void {
+    this.destroySubject.next();
+  }
 
+  async save() {
     const formValue = this.form()?.value;
 
     const mapItem = formValue as MapLocation;
-    mapItem.id = location?.id;
+    mapItem.id = this.service.location()?.id;
 
-    this.updateTypeSpecificAttributes(location)
-
-    await this.saveInDataSource(location, formValue);
+    this.updateTypeSpecificAttributes(mapItem)
+    await this.saveInDataSource(mapItem);
   }
 
 
-  private async saveInDataSource(location: MapLocation, formValue: unknown) {
+  private async saveInDataSource(location: MapLocation) {
     if (location?.id === undefined) {
       const savedLocation = await this.dataService.insert(location);
       this.router.navigate(['locations', savedLocation.id])
@@ -90,12 +93,12 @@ export class LocationEditComponent {
   }
 
   private updateTypeSpecificAttributes(location: MapLocation) {
+    location.attributes = {};
 
     getDisplayAttributesByType(location.type).forEach((attr: string) => {
       const typeSpecificControls = this.form()?.get('typeSpecificControls') as FormGroup
 
       location.attributes[attr] = typeSpecificControls.get(attr)?.value;
-
     })
   }
 
@@ -112,6 +115,8 @@ export class LocationEditComponent {
     for (const key of typeSpecificAttributes) {
       typeSpecificControls.addControl(key, new FormControl(location?.attributes?.[key]));
     }
+
+    this.updateTypeSpecificControlNames();
   }
 
   private removeExistingTypeSpecificControls(typeSpecificControls: FormGroup<any>) {
@@ -122,8 +127,10 @@ export class LocationEditComponent {
     });
   }
 
-  getTypeSpecificControlNames() {
+
+  updateTypeSpecificControlNames() {
     const typeSpecificControls = this.form()?.get('typeSpecificControls') as FormGroup
-    return Object.keys(typeSpecificControls.controls);
+
+    this.typeSpecificControlNames.set(Object.keys(typeSpecificControls.controls));
   }
 }

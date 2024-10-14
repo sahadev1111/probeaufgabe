@@ -14,7 +14,7 @@
     </select>
 
     <ng-container formGroupName="typeSpecificControls">
-      @for (ctrl of getTypeSpecificControlNames(); track ctrl) {
+      @for (ctrl of typeSpecificControlNames(); track ctrl) {
         <span>{{ ctrl | translate }}</span>
         <input [formControlName]="ctrl">
       }

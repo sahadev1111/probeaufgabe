@@ -56,6 +56,10 @@ export class LocationEditComponent implements OnDestroy {
               @Inject(LOCATION_DATA_SERVICE) private dataService: IMapItemsDataService,
               private router: Router) {
 
+    this.updateFormOnTypeChange();
+  }
+
+  private updateFormOnTypeChange() {
     const onTypeChange$ = toObservable(this.form).pipe(
       filter(form => !!form?.get('type')?.valueChanges),
       switchMap(form => {

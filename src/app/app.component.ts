@@ -4,7 +4,7 @@ import 'ol/ol.css';
 import {MapService} from "./map.service";
 import {IMapItemsDataService, LOCATION_DATA_SERVICE} from "./data/location-data-service";
 import {LocationInfoComponent} from "./location-info/location-info.component";
-import {MapLocation} from "./model/map-location.model";
+import {MapLocation} from "./map-location.model";
 import {TranslateService} from "@ngx-translate/core";
 import {AppService} from "./app.service";
 import {SidebarComponent} from "./sidebar/sidebar.component";

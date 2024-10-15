@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IMapItemsDataService} from "./location-data-service";
-import {MapLocation} from "../model/map-location.model";
+import {MapLocation} from "../map-location.model";
 import {hardCodedLocations} from "./hard-coded-locations";
 
 const API_PATH = "api/locations";

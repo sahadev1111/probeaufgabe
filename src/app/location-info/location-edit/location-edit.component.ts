@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, computed, Inject, inject, OnDestroy,
 import {LocationBoxService} from "../location-box.service";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {IMapItemsDataService, LOCATION_DATA_SERVICE} from "../../data/location-data-service";
-import {MapItemType} from "../../model/map-location.model";
+import {MapItemType} from "../../map-location.model";
 import {assert} from "../../lib/assert";
 import {TranslateModule} from "@ngx-translate/core";
 import {getDisplayAttributesByType} from "../get-display-attributes-by-type";

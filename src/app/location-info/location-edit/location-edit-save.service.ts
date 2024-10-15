@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {MapLocation} from "../../model/map-location.model";
+import {MapLocation} from "../../map-location.model";
 import {FormGroup} from "@angular/forms";
 import {getDisplayAttributesByType} from "../get-display-attributes-by-type";
 import {LocationBoxService} from "../location-box.service";

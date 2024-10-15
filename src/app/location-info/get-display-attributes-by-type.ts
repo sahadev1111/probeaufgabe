@@ -1,4 +1,4 @@
-import {MapItemType} from "../model/map-location.model";
+import {MapItemType} from "../map-location.model";
 
 export function getDisplayAttributesByType(location: MapItemType) {
   switch (location) {

@@ -1,4 +1,4 @@
-import type {MapLocation} from "../model/map-location.model";
+import type {MapLocation} from "../map-location.model";
 import {InjectionToken} from "@angular/core";
 
 export const LOCATION_DATA_SERVICE = new InjectionToken("mapDataService");

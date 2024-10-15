@@ -1,5 +1,5 @@
 import {Injectable, signal} from '@angular/core';
-import {MapLocation} from "../model/map-location.model";
+import {MapLocation} from "../map-location.model";
 
 @Injectable({
   providedIn: 'root'

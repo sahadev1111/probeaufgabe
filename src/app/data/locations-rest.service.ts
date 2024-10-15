@@ -21,7 +21,7 @@ export class LocationsRestService implements IMapItemsDataService {
   }
 
   async delete(mapItem: MapLocation): Promise<void> {
-    const result = await fetch(`${API_PATH}/${mapItem.id}`, {
+    await fetch(`${API_PATH}/${mapItem.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

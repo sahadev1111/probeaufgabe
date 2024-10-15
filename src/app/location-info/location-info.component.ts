@@ -1,5 +1,4 @@
-import {Component, model, OnChanges} from '@angular/core';
-import {MapLocation} from "../model/map-location.model";
+import {Component} from '@angular/core';
 import {LocationBoxService} from "./location-box.service";
 import {LocationViewComponent} from "./location-view/location-view.component";
 import {LocationEditComponent} from "./location-edit/location-edit.component";

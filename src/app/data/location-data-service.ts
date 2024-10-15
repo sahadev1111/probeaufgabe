@@ -1,7 +1,7 @@
 import type {MapLocation} from "../model/map-location.model";
 import {InjectionToken} from "@angular/core";
 
-export const mapDataServiceToken = new InjectionToken("mapDataService");
+export const LOCATION_DATA_SERVICE = new InjectionToken("mapDataService");
 
 export interface IMapItemsDataService {
   getAll(): Promise<MapLocation[]>;

@@ -1,14 +1,14 @@
 import {ChangeDetectionStrategy, Component, computed, Inject, inject, OnDestroy, signal} from '@angular/core';
 import {LocationBoxService} from "../location-box.service";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {IMapItemsDataService, mapDataServiceToken} from "../../data/location-data-service";
+import {IMapItemsDataService, LOCATION_DATA_SERVICE} from "../../data/location-data-service";
 import {MapItemType, MapLocation} from "../../model/map-location.model";
 import {assert} from "../../lib/assert";
 import {TranslateModule} from "@ngx-translate/core";
 import {getDisplayAttributesByType} from "../get-display-attributes-by-type";
-import {toObservable, toSignal} from "@angular/core/rxjs-interop";
+import {toObservable} from "@angular/core/rxjs-interop";
 import {merge, of, Subject, takeUntil} from "rxjs";
-import {filter, switchMap, tap} from "rxjs/operators";
+import {filter, switchMap} from "rxjs/operators";
 import {AsyncPipe} from "@angular/common";
 import {Router} from "@angular/router";
 import {AppService} from "../../app.service";
@@ -50,7 +50,7 @@ export class LocationEditComponent implements OnDestroy {
 
   constructor(protected service: LocationBoxService,
               private appService: AppService,
-              @Inject(mapDataServiceToken) private dataService: IMapItemsDataService,
+              @Inject(LOCATION_DATA_SERVICE) private dataService: IMapItemsDataService,
               private router: Router) {
 
     const onTypeChange$ = toObservable(this.form).pipe(
@@ -63,7 +63,7 @@ export class LocationEditComponent implements OnDestroy {
 
     onTypeChange$
       .pipe(takeUntil(this.destroySubject))
-      .subscribe(form => this.updateDisplayedAttributes());
+      .subscribe(() => this.updateDisplayedAttributes());
   }
 
   ngOnDestroy(): void {
@@ -105,10 +105,10 @@ export class LocationEditComponent implements OnDestroy {
 
   private updateDisplayedAttributes() {
 
-    const selectedType = this.form()?.get('type')?.value as any;
+    const selectedType = this.form()?.get('type')?.value as MapItemType;
 
-    let typeSpecificAttributes = getDisplayAttributesByType(selectedType);
-    let location = this.service.location();
+    const typeSpecificAttributes = getDisplayAttributesByType(selectedType);
+    const location = this.service.location();
 
     const typeSpecificControls = this.form()?.get('typeSpecificControls') as FormGroup
     this.removeExistingTypeSpecificControls(typeSpecificControls);
@@ -120,7 +120,7 @@ export class LocationEditComponent implements OnDestroy {
     this.updateTypeSpecificControlNames();
   }
 
-  private removeExistingTypeSpecificControls(typeSpecificControls: FormGroup<any>) {
+  private removeExistingTypeSpecificControls(typeSpecificControls: FormGroup) {
     const controlKeys = Object.keys(typeSpecificControls.controls);
 
     controlKeys.forEach(key => {

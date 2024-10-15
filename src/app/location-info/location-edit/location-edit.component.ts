@@ -12,6 +12,7 @@ import {filter, switchMap} from "rxjs/operators";
 import {AsyncPipe} from "@angular/common";
 import {Router} from "@angular/router";
 import {AppService} from "../../app.service";
+import {LocationEditSaveService} from "./location-edit-save.service";
 
 @Component({
   selector: 'app-location-edit',
@@ -23,7 +24,8 @@ import {AppService} from "../../app.service";
   ],
   templateUrl: './location-edit.component.html',
   styleUrl: './location-edit.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [LocationEditSaveService]
 })
 export class LocationEditComponent implements OnDestroy {
 
@@ -50,6 +52,7 @@ export class LocationEditComponent implements OnDestroy {
 
   constructor(protected service: LocationBoxService,
               private appService: AppService,
+              private saveService: LocationEditSaveService,
               @Inject(LOCATION_DATA_SERVICE) private dataService: IMapItemsDataService,
               private router: Router) {
 
@@ -63,7 +66,7 @@ export class LocationEditComponent implements OnDestroy {
 
     onTypeChange$
       .pipe(takeUntil(this.destroySubject))
-      .subscribe(() => this.updateDisplayedAttributes());
+      .subscribe(() => this.updateTypeSpecificAttributes());
   }
 
   ngOnDestroy(): void {
@@ -71,39 +74,17 @@ export class LocationEditComponent implements OnDestroy {
   }
 
   async save() {
-    const formValue = this.form()?.value;
 
-    const mapItem = formValue as MapLocation;
-    mapItem.id = this.service.location()?.id;
+    let formGroup = this.form();
+    assert(formGroup, "expected form group to exist")
+    const savedLocation = await this.saveService.save(formGroup);
 
-    this.updateTypeSpecificAttributes(mapItem);
-
-    await this.saveInDataSource(mapItem);
-  }
-
-
-  private async saveInDataSource(location: MapLocation) {
-    if (location?.id === undefined) {
-      const savedLocation = await this.dataService.insert(location);
-      this.router.navigate(['locations', savedLocation.id])
-    } else {
-      await this.dataService.update(location);
-    }
+    this.router.navigate(['locations', savedLocation.id])
 
     this.appService.reloadDataCommand.next();
   }
 
-  private updateTypeSpecificAttributes(location: MapLocation) {
-    location.attributes = {};
-
-    getDisplayAttributesByType(location.type).forEach((attr: string) => {
-      const typeSpecificControls = this.form()?.get('typeSpecificControls') as FormGroup
-
-      location.attributes[attr] = typeSpecificControls.get(attr)?.value;
-    })
-  }
-
-  private updateDisplayedAttributes() {
+  private updateTypeSpecificAttributes() {
 
     const selectedType = this.form()?.get('type')?.value as MapItemType;
 
@@ -127,7 +108,6 @@ export class LocationEditComponent implements OnDestroy {
       typeSpecificControls.removeControl(key);
     });
   }
-
 
   updateTypeSpecificControlNames() {
     const typeSpecificControls = this.form()?.get('typeSpecificControls') as FormGroup

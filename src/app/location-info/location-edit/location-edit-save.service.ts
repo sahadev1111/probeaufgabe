@@ -21,7 +21,7 @@ export class LocationEditSaveService {
 
     this.updateTypeSpecificAttributes(location, form);
 
-    return await this.saveInDataSource(location, form);
+    return await this.saveInDataSource(location);
   }
 
   private updateTypeSpecificAttributes(location: MapLocation, form: FormGroup) {
@@ -34,7 +34,7 @@ export class LocationEditSaveService {
     })
   }
 
-  private async saveInDataSource(location: MapLocation, form: FormGroup) {
+  private async saveInDataSource(location: MapLocation) {
     if (location?.id === undefined) {
       return await this.dataService.insert(location);
     } else {

@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, computed, Inject, inject, OnDestroy,
 import {LocationBoxService} from "../location-box.service";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {IMapItemsDataService, LOCATION_DATA_SERVICE} from "../../data/location-data-service";
-import {MapItemType, MapLocation} from "../../model/map-location.model";
+import {MapItemType} from "../../model/map-location.model";
 import {assert} from "../../lib/assert";
 import {TranslateModule} from "@ngx-translate/core";
 import {getDisplayAttributesByType} from "../get-display-attributes-by-type";
@@ -56,10 +56,10 @@ export class LocationEditComponent implements OnDestroy {
               @Inject(LOCATION_DATA_SERVICE) private dataService: IMapItemsDataService,
               private router: Router) {
 
-    this.updateFormOnTypeChange();
+    this.updateFormOnLocationTypeChange();
   }
 
-  private updateFormOnTypeChange() {
+  private updateFormOnLocationTypeChange() {
     const onTypeChange$ = toObservable(this.form).pipe(
       filter(form => !!form?.get('type')?.valueChanges),
       switchMap(form => {
@@ -70,17 +70,14 @@ export class LocationEditComponent implements OnDestroy {
 
     onTypeChange$
       .pipe(takeUntil(this.destroySubject))
-      .subscribe(() => this.updateTypeSpecificAttributes());
-  }
-
-  ngOnDestroy(): void {
-    this.destroySubject.next();
+      .subscribe(() => this.updateTypeSpecificFormControls());
   }
 
   async save() {
 
-    let formGroup = this.form();
+    const formGroup = this.form();
     assert(formGroup, "expected form group to exist")
+
     const savedLocation = await this.saveService.save(formGroup);
 
     this.router.navigate(['locations', savedLocation.id])
@@ -88,7 +85,7 @@ export class LocationEditComponent implements OnDestroy {
     this.appService.reloadDataCommand.next();
   }
 
-  private updateTypeSpecificAttributes() {
+  private updateTypeSpecificFormControls() {
 
     const selectedType = this.form()?.get('type')?.value as MapItemType;
 
@@ -117,5 +114,9 @@ export class LocationEditComponent implements OnDestroy {
     const typeSpecificControls = this.form()?.get('typeSpecificControls') as FormGroup
 
     this.typeSpecificControlNames.set(Object.keys(typeSpecificControls.controls));
+  }
+
+  ngOnDestroy(): void {
+    this.destroySubject.next();
   }
 }

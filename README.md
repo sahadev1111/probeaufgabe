@@ -1,4 +1,4 @@
-## how tu run
+## how to run
 run frontend: 
 ```
 npm run start
@@ -12,7 +12,12 @@ tsc
 node src/backend.js
 ```
 
-## documentation
+# documentation
+## user manual
+- click on the map to add a new location
+- existing locations are on the left sidebar
+
+## development
 entity: MapLocation -> src/app/model/...
 
 

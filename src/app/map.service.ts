@@ -7,8 +7,10 @@ import {Feature} from "ol";
 import {Point} from "ol/geom";
 import {Vector as VectorSource} from "ol/source";
 import {Vector as VectorLayer} from "ol/layer";
-import {fromLonLat} from "ol/proj";
+import {fromLonLat, toLonLat} from "ol/proj";
 import {Icon, Style} from "ol/style";
+import {BehaviorSubject} from "rxjs";
+import {Coordinate} from "ol/coordinate";
 
 
 @Injectable({
@@ -16,6 +18,7 @@ import {Icon, Style} from "ol/style";
 })
 export class MapService {
   private map?: Map;
+  mouseClickAtLongLat$ = new BehaviorSubject<Coordinate | undefined>(undefined);
 
   vectorSource = new VectorSource({
     features: [] as Feature[]
@@ -43,10 +46,15 @@ export class MapService {
     this.map.addLayer(vectorLayer);
 
     this.map.on('singleclick', (event) => {
+      let featureFound = false;
       this.map?.forEachFeatureAtPixel(event.pixel, function (feature) {
-
+        featureFound = true;
         feature.get('clickListener')?.(feature.get('model'));
       });
+
+      if (!featureFound) {
+        this.mouseClickAtLongLat$.next(toLonLat(event.coordinate));
+      }
     });
   }
 

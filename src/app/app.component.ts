@@ -8,6 +8,7 @@ import {MapLocation} from "./model/map-location.model";
 import {TranslateService} from "@ngx-translate/core";
 import {AppService} from "./app.service";
 import {SidebarComponent} from "./sidebar/sidebar.component";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,10 @@ export class AppComponent implements OnInit {
     this.reloadDataOnCommand();
 
     this.appService.reloadDataCommand.next();
+    this.mapService.mouseClickAtLongLat$.pipe(filter(coord => !!coord))
+      .subscribe(coords => {
+        this.router.navigate(['locations', 'new', {outlets: {locationbox: ['edit']}}], {queryParams: { coords}});
+      });
   }
 
   private reloadDataOnCommand() {

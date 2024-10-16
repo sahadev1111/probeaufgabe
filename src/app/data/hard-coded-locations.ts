@@ -1,7 +1,6 @@
 import {MapLocation, MapItemType} from "../map-location.model";
 
 export const hardCodedLocations: MapLocation[] = [
-  // new POI(9.27, 47.385971, 'Kebabhaus')
   {
     id: 1,
     name: 'Kebabhaus Herisau',

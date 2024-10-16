@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
     this.mapService.initMap();
 
-    this.reloadDataOnCommand();
+    this.reloadMapOnDataChange();
 
     this.appService.reloadDataCommand.next();
     this.mapService.mouseClickAtLongLat$.pipe(filter(coord => !!coord))
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
       });
   }
 
-  private reloadDataOnCommand() {
+  private reloadMapOnDataChange() {
     this.appService.locations$.subscribe(async () => {
 
       this.mapService.clearData();
